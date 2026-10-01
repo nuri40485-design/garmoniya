@@ -181,11 +181,12 @@ svg{display:block;width:100%;height:auto}
       <div class="n">Шаг 2</div>
       <h3>Присоска</h3>
       <p>Прижми весь язык к нёбу, будто присоску: кончик, середину и особенно корень — заднюю часть. Почувствуй, как корень поднимается вверх. Не отрывая языка, медленно открой рот. Под языком мягко потянется уздечка. Держи, потом отпусти и расслабься.</p>
-      <span class="dose">5 раз · держим 5 секунд · отдых 3 секунды</span>
+      <span class="dose">5 кругов · держим 15 секунд · отдых 15 секунд · пауза 5 секунд</span>
       <div class="timer">
-        <svg class="ring" viewBox="0 0 84 84" aria-hidden="true"><circle class="bgc" cx="42" cy="42" r="34"/><circle class="fg" id="ringFg" cx="42" cy="42" r="34" transform="rotate(-90 42 42)" stroke-dasharray="213.6" stroke-dashoffset="213.6"/><text id="ringT" x="42" y="52" text-anchor="middle">5</text></svg>
+        <svg class="ring" viewBox="0 0 84 84" aria-hidden="true"><circle class="bgc" cx="42" cy="42" r="34"/><circle class="fg" id="ringFg" cx="42" cy="42" r="34" transform="rotate(-90 42 42)" stroke-dasharray="213.6" stroke-dashoffset="213.6"/><text id="ringT" x="42" y="52" text-anchor="middle">15</text></svg>
         <div class="tstate"><b id="tHead">Готова?</b><span id="tSub">Нажми «Начать» — я посчитаю за тебя.</span></div>
         <button class="btn" id="tBtn">Начать</button>
+        <button class="btn ghost" id="sBtn" aria-pressed="true">🔊 Звук включён</button>
       </div>
     </article>
 
@@ -282,19 +283,53 @@ svg{display:block;width:100%;height:auto}
   // присоска timer
   const C=213.6, fg=$('ringFg'), rt=$('ringT'), head=$('tHead'), sub=$('tSub'), btn=$('tBtn');
   let run=null;
-  function stop(msg){ if(run){ clearInterval(run.iv); run=null; } btn.textContent='Начать'; fg.style.strokeDashoffset=C; rt.textContent='5'; if(msg){ head.textContent=msg; sub.textContent='Можно повторить ещё раз вечером.'; } }
+  // звук таймера (без файлов — рисуется прямо в браузере)
+  const sBtn=$('sBtn'); let ac=null, soundOn=true;
+  function tone(freq,dur,vol,delay){
+    if(!soundOn||!ac) return;
+    const o=ac.createOscillator(), g=ac.createGain(), t=ac.currentTime+(delay||0);
+    o.type='sine'; o.frequency.value=freq;
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t+dur+.05);
+  }
+  const sndTick=()=>tone(880,.07,.25);                                   // тик каждую секунду
+  const sndHold=()=>{ tone(660,.18,.3); tone(880,.25,.3,.16); };         // начало «держим»: два тона вверх
+  const sndRest=()=>{ tone(660,.18,.3); tone(440,.3,.3,.16); };          // начало «отдых»: два тона вниз
+  const sndDone=()=>{ tone(523,.35,.3); tone(659,.35,.3,.22); tone(784,.6,.3,.44); }; // финал
+  sBtn.addEventListener('click',()=>{
+    soundOn=!soundOn; sBtn.setAttribute('aria-pressed',String(soundOn));
+    sBtn.textContent=soundOn?'🔊 Звук включён':'🔇 Звук выключен';
+  });
+  function stop(msg){ if(run){ clearInterval(run.iv); run=null; } btn.textContent='Начать'; fg.style.strokeDashoffset=C; rt.textContent=String(HOLD); if(msg){ head.textContent=msg; sub.textContent='Можно повторить ещё раз вечером.'; } }
+  // длительности, сек: подготовка перед стартом и между кругами, «держим», «отдыхаем»
+  const HOLD=15, REST=15, PREP=5, ROUNDS=5;
+  const LEN={ready:PREP, hold:HOLD, rest:REST, prep:PREP};
   btn.addEventListener('click',()=>{
     if(run){ stop(); head.textContent='Пауза'; sub.textContent='Нажми «Начать», когда будешь готова.'; return; }
-    btn.textContent='Стоп'; run={rep:1,phase:'hold',t:0};
+    // звук нужно «разбудить» именно по нажатию кнопки — так требуют телефоны
+    try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); } if(ac.state==='suspended'){ ac.resume(); } }catch(e){ ac=null; }
+    btn.textContent='Стоп'; run={rep:1,phase:'ready',t:0,sec:PREP}; sndRest();
     run.iv=setInterval(()=>{
       const r=run; if(!r) return; r.t+=.1;
-      const len=r.phase==='hold'?5:3; const left=Math.max(0,len-r.t);
+      const len=LEN[r.phase]; const left=Math.max(0,len-r.t);
+      const quiet=(r.phase==='ready'||r.phase==='prep');            // пауза: без тиканья
+      const sec=Math.ceil(left); if(sec!==r.sec && sec>0){ r.sec=sec; if(!quiet) sndTick(); }
       rt.textContent=String(Math.ceil(left)||0);
       fg.style.stroke=r.phase==='hold'?'var(--tongue)':'var(--air)';
       fg.style.strokeDashoffset=String(C*(left/len));
-      head.textContent=(r.phase==='hold'?'Держим · ':'Отдыхаем · ')+r.rep+' из 5';
-      sub.textContent=r.phase==='hold'?'Язык присоской у нёба, рот медленно открыт.':'Отпусти язык, расслабь челюсть.';
-      if(r.t>=len){ r.t=0; if(r.phase==='hold'){ r.phase='rest'; } else { r.rep++; r.phase='hold'; if(r.rep>5){ stop('Готово, умница!'); } } }
+      if(r.phase==='hold'){ head.textContent='Держим · '+r.rep+' из '+ROUNDS; sub.textContent='Язык присоской у нёба, рот медленно открыт.'; }
+      else if(quiet){ head.textContent='Приготовься · '+(r.phase==='ready'?1:r.rep+1)+' из '+ROUNDS; sub.textContent='Пауза. Язык к нёбу — сейчас начнём.'; }
+      else { head.textContent='Отдыхаем · '+r.rep+' из '+ROUNDS; sub.textContent='Отпусти язык, расслабь челюсть, подыши.'; }
+      if(r.t>=len){
+        r.t=0;
+        if(r.phase==='ready'){ r.phase='hold'; r.sec=HOLD; sndHold(); }
+        else if(r.phase==='hold'){ r.phase='rest'; r.sec=REST; sndRest(); }
+        else if(r.phase==='rest'){
+          if(r.rep>=ROUNDS){ sndDone(); stop('Готово, умница!'); }
+          else { r.phase='prep'; r.sec=PREP; }
+        }
+        else { r.rep++; r.phase='hold'; r.sec=HOLD; sndHold(); }
+      }
     },100);
   });
 
