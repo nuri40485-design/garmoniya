@@ -449,6 +449,7 @@ body.dk-run .vstart.on{display:grid}
 @media (max-width:800px){ .week{grid-template-columns:repeat(4,1fr)} .week.three{grid-template-columns:1fr} .vrow{grid-template-columns:1fr} .blist{grid-template-columns:1fr} .zones{grid-template-columns:1fr} }
 @media (prefers-reduced-motion:reduce){ .flw,.stm,.scale2 b.zone{animation:none!important} }
 @media (max-height:720px){ .sl .word-big{font-size:clamp(34px,10vh,80px)} .eq .txt{display:none} .vlist .it,.blist .it{padding:5px 10px;font-size:12.5px} .week .wd{padding:8px 4px} .zones .z span{font-size:11px} .glass svg{width:80px} }
+#s-dnevnik .d-card .big{font-size:clamp(22px,2.9vw,44px)}#s-dnevnik .d-card .txt{font-size:clamp(13px,1.45vw,23px)}#s-dnevnik .d-grid{gap:clamp(9px,1.3vmin,18px)}#s-dnevnik .seal{font-size:clamp(16px,2vw,32px)}#s-dnevnik.sl.ctr{gap:clamp(12px,2.4vh,34px)}.d-grid.three .d-card .big{min-height:2em;display:flex;align-items:center;justify-content:center}
 #lbl3d .l3 span{left:104px}#lbl3d .l3.lf span{left:auto;right:104px}#lbl3d .l3 span::before{width:96px}
 .sl.rosebg2 .d-lead,.sl.rosebg2 .h1{text-shadow:0 2px 18px rgba(20,12,9,.7)}
 </style>
@@ -1802,9 +1803,9 @@ const PLAY=[
  {f:'1',s:0,d:10},{f:'2',s:1,d:18},{f:'3',s:2,d:15},
  {f:'4',s:3,d:18},{f:'5',s:4,d:29},{f:'6',s:5,d:41},{f:'7',s:6,d:19},
  {f:'8',s:7,d:27},{f:'9',s:8,d:28},{f:'10',s:9,d:28},
- {f:'11',s:10,d:31},{f:'12',s:11,d:44},{f:'13',s:12,d:8},{f:'14',s:13,d:10},{f:'15',s:14,d:34},
- {f:'16',s:15,d:42},{f:'17',s:16,d:36},{f:'18',s:17,d:8},{f:'19',s:18,d:20},
- {f:'20',s:19,d:40},{f:'21',s:20,d:14}
+ {f:'11',s:10,d:31},{f:'12',s:11,d:44},{f:'13',s:12,d:8},{f:'14',s:13,d:10},{f:'15',s:14,d:27},
+ {f:'16',s:15,d:40},{f:'17',s:16,d:30},{f:'18',s:17,d:11},{f:'19',s:18,d:17},
+ {f:'20',s:19,d:30},{f:'21',s:20,d:21}
 ];
 const vo=document.getElementById('vo'), vStart=document.getElementById('vStart'), vBar=document.getElementById('vBar'),
       vPlayB=document.getElementById('vPlay'), vBackB=document.getElementById('vBack'), vPg=document.getElementById('vPg');
