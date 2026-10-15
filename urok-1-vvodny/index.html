@@ -537,6 +537,7 @@ body.dk-run .vstart.on{display:grid}
     <div class="byname">Нури о женском</div>
     <h1 class="h1 shine" style="font-size:clamp(44px,8vw,140px)">Гармония тела</h1>
     <p class="d-lead" style="max-width:36ch">Урок 1 · Вводный<br>Зачем мы идём этим путём и с каким намерением</p>
+    <div class="greet" style="font-size:clamp(17px,2vw,34px);margin-top:.4em">Ассаляму алейкум уа рахматуЛлахи уа баракатуху, дорогие сёстры</div>
   </section>
 
   <section class="sl full rosebg2 ctr" id="s-hello">
@@ -697,7 +698,7 @@ body.dk-run .vstart.on{display:grid}
       <g class="pg" style="--n:1"><circle class="halo" cx="210" cy="75" r="40"/><circle class="pr" cx="210" cy="75" r="30"/></g>
       <g class="pg" style="--n:2"><circle class="halo" cx="340" cy="75" r="40"/><circle class="pr" cx="340" cy="75" r="30"/></g>
     </svg>
-    <h1 class="h1 shine fr">Баракаллаху фикум</h1>
+    <h1 class="h1 shine fr">БаракаЛлаху фикунна</h1>
     <p class="d-lead fr" style="max-width:44ch">В следующем уроке мы уже начнём практическую часть.</p>
     <div class="greet fr" style="font-size:clamp(20px,2.4vw,40px)">Ассаляму алейкум уа рахматуЛлахи уа баракатуху</div>
   </section>
@@ -1677,7 +1678,6 @@ const STEPS=[
  {p:4,kind:'atlas',atlas:'i4',cap:'Здесь к вечеру копится напряжение · рабочая зона 3–4 из 10',q:'Острая боль, жжение, онемение: сразу отпускаем',warn:1},
  {p:4,kind:'full',el:'s-otvet'},
  {p:5,kind:'full',el:'s-dnevnik'},
- {p:5,kind:'atlas',atlas:'i5',cap:'Тело — аманат',q:'Начните с намерения'},
  {p:5,kind:'full',el:'s-final'}
 ];
 (function(){ const g=document.getElementById('helloG'); 'Ассаляму алейкум уа рахматуЛлахи уа баракатуху, дорогие сёстры'.split(' ').forEach((w,i)=>{ const s=document.createElement('span'); s.className='w'; s.style.setProperty('--i',i); s.textContent=w; g.appendChild(s); }); })();
@@ -1800,12 +1800,12 @@ function tSetup(step){ tStop(); const seq=step&&step.kind==='atlas'&&TIMERS[step
 
 /* ===== озвучка: голос, слайды и таймер идут сами ===== */
 const PLAY=[
- {f:'1',s:0,d:11},{f:'2',s:1,d:20},{f:'3',s:2,d:16},
- {f:'4',s:3,d:19},{f:'5',s:4,d:32},{f:'6',s:5,d:46},{f:'7',s:6,d:20},
- {f:'8',s:7,d:30},{f:'9',s:8,d:30},{f:'10',s:9,d:31},
- {f:'11',s:10,d:35},{f:'12',s:11,d:49},{f:'13',s:12,d:9},{f:'14',s:13,d:10},{f:'15',s:14,d:30},
- {f:'16',s:15,d:44},{f:'17',s:16,d:33},{f:'18',s:17,d:12},{f:'19',s:18,d:18},
- {f:'20',s:19,d:34},{f:'21',s:20,d:23}
+ {f:'1',s:0,d:12},{f:'2',s:1,d:22},{f:'3',s:2,d:18},{f:'4',s:3,d:22},
+ {f:'5',s:4,d:35},{f:'6',s:5,d:51},{f:'7',s:6,d:22},{f:'8',s:7,d:34},
+ {f:'9',s:8,d:39},{f:'10',s:9,d:34},{f:'11',s:10,d:39},{f:'12',s:11,d:53},
+ {f:'13',s:12,d:9},{f:'14',s:13,d:11},{f:'15',s:14,d:32},{f:'16',s:15,d:47},
+ {f:'17',s:16,d:35},{f:'18',s:17,d:14},{f:'19',s:18,d:21},{f:'20',s:19,d:38},
+ {f:'21',s:20,d:27}
 ];
 const vo=document.getElementById('vo'), vStart=document.getElementById('vStart'), vBar=document.getElementById('vBar'),
       vPlayB=document.getElementById('vPlay'), vBackB=document.getElementById('vBack'), vPg=document.getElementById('vPg');
