@@ -181,7 +181,7 @@ body.dk-run #gl{top:0!important;height:100%!important}
 .d-tags span{font-size:clamp(14px,1.5vw,24px);font-weight:700;padding:8px 18px;border-radius:999px;background:rgba(244,232,210,.12);border:1px solid rgba(244,232,210,.3)}
 .d-foot{text-align:center;font-family:"Cormorant Garamond",serif;font-size:clamp(22px,2.8vw,46px);font-style:italic}
 /* обложка и финал: роза */
-.rosebg{background:linear-gradient(180deg,rgba(28,19,15,.4),rgba(28,19,15,.78)),var(--rose-img) center/cover!important}
+.rosebg{background:linear-gradient(180deg,rgba(24,16,12,.62),rgba(20,13,10,.88)),var(--rose-img) center/cover!important}
 .cover,.final{justify-items:center;text-align:center}
 .pearls{width:clamp(240px,30vw,460px);height:auto;overflow:visible}
 .pearls .thr{opacity:0;animation:thrIn 1.2s ease forwards 4.4s,axisFlow 2.4s linear infinite;fill:none;stroke:var(--gold);stroke-width:3;stroke-dasharray:4 8;stroke-linecap:round}
@@ -284,7 +284,7 @@ body.dk-at .cap{top:14px;font-size:clamp(14px,1.45vw,22px);padding:9px 22px}
 @media (max-width:700px){ body.dk-at .qm{max-width:94vw!important;left:3vw!important;bottom:70px!important} }
 
 .sl.rosebg2{background:
-  linear-gradient(180deg,rgba(46,29,22,.6),rgba(24,16,12,.8)),
+  linear-gradient(180deg,rgba(34,21,16,.76),rgba(18,12,9,.9)),
   linear-gradient(118deg,transparent 26%,rgba(244,232,210,.06) 42%,transparent 58%),
   var(--rose-img) center/cover!important}
 .sl.ctr{justify-items:center;text-align:center;align-content:space-evenly;gap:clamp(18px,4vh,54px)}
@@ -698,7 +698,7 @@ body.dk-run .vstart.on{display:grid}
     </svg>
     <h1 class="h1 shine fr">Баракаллаху фикум</h1>
     <p class="d-lead fr" style="max-width:44ch">В следующем уроке мы уже начнём практическую часть.</p>
-    <div class="greet fr" style="font-size:clamp(20px,2.4vw,40px)">Ассаляму алейкум ва рахматуллахи ва баракятуху</div>
+    <div class="greet fr" style="font-size:clamp(20px,2.4vw,40px)">Ассаляму алейкум уа рахматуЛлахи уа баракатуху</div>
   </section>
 
   <div id="dkToast"></div>
@@ -1679,19 +1679,11 @@ const STEPS=[
  {p:5,kind:'atlas',atlas:'i5',cap:'Тело — аманат',q:'Начните с намерения'},
  {p:5,kind:'full',el:'s-final'}
 ];
-(function(){ const g=document.getElementById('helloG'); 'Ассаляму алейкум ва рахматуллахи ва баракятуху, дорогие сёстры'.split(' ').forEach((w,i)=>{ const s=document.createElement('span'); s.className='w'; s.style.setProperty('--i',i); s.textContent=w; g.appendChild(s); }); })();
+(function(){ const g=document.getElementById('helloG'); 'Ассаляму алейкум уа рахматуЛлахи уа баракатуху, дорогие сёстры'.split(' ').forEach((w,i)=>{ const s=document.createElement('span'); s.className='w'; s.style.setProperty('--i',i); s.textContent=w; g.appendChild(s); }); })();
 (function(){ const b=document.createElement('div'); const C=[['#B9D9A4','#8DB07A'],['#C5DB9C','#9BBB86'],['#D4DC96','#B5BC72'],['#E3DB8F','#CDBA6C'],['#F0D58B','#DDB167'],['#F3C987','#E6A25E'],['#F5BC86','#E58F58'],['#F4AA84','#E27A58'],['#F3979A','#DE6A6B'],['#F2848F','#E05564'],['#FF6B7C','#E83A52']];
   for(let i=0;i<=10;i++){ const e=document.createElement('b'); e.textContent=i; e.style.setProperty('--c1',C[i][0]); e.style.setProperty('--c2',C[i][1]); b.appendChild(e); } })();
 (function(){ const C=[['#B9D9A4','#8DB07A'],['#C5DB9C','#9BBB86'],['#D4DC96','#B5BC72'],['#E3DB8F','#CDBA6C'],['#F0D58B','#DDB167'],['#F3C987','#E6A25E'],['#F5BC86','#E58F58'],['#F4AA84','#E27A58'],['#F3979A','#DE6A6B'],['#F2848F','#E05564'],['#FF6B7C','#E83A52']];
   const b=document.getElementById('scaleBar2'); if(b) for(let i=0;i<=10;i++){ const e=document.createElement('b'); e.textContent=i; e.style.setProperty('--c1',C[i][0]); e.style.setProperty('--c2',C[i][1]); if(i===3||i===4) e.className='zone'; b.appendChild(e); } })();
-/* цветочный декор на слайдах */
-(function(){ function flower(S,c1,c2,cc){ let g=''; for(let a=0;a<360;a+=45) g+='<g transform="rotate('+(a+20)+')"><ellipse cx="0" cy="'+(-S*.47)+'" rx="'+(S*.07)+'" ry="'+(S*.2)+'" fill="#7FA566" opacity=".8"/></g>';
-  for(let a=0;a<360;a+=30) g+='<g transform="rotate('+a+')"><ellipse cx="0" cy="'+(-S*.3)+'" rx="'+(S*.095)+'" ry="'+(S*.2)+'" fill="'+c1+'" opacity=".85"/></g>';
-  for(let a=15;a<375;a+=30) g+='<g transform="rotate('+a+')"><ellipse cx="0" cy="'+(-S*.2)+'" rx="'+(S*.07)+'" ry="'+(S*.14)+'" fill="'+c2+'" opacity=".9"/></g>';
-  g+='<circle r="'+(S*.1)+'" fill="'+cc+'"/>'; for(let a=0;a<360;a+=40){ g+='<circle cx="'+(S*.145*Math.sin(a*Math.PI/180))+'" cy="'+(-S*.145*Math.cos(a*Math.PI/180))+'" r="'+(S*.022)+'" fill="#FFF4E0"/>'; }
-  return '<svg width="'+S+'" height="'+S+'" viewBox="'+(-S/2)+' '+(-S/2)+' '+S+' '+S+'" aria-hidden="true">'+g+'</svg>'; }
-  document.querySelectorAll('#dk .sl.full').forEach((sl,i)=>{ if(sl.id==='s-cover') return; const mk=(cls,S,c1,c2,cc)=>{ const d=document.createElement('div'); d.className='flw '+cls; d.style.width=d.style.height=(S/2)+'px'; d.style.overflow='hidden'; const inner=document.createElement('div'); inner.innerHTML=flower(S,c1,c2,cc); inner.style.cssText='position:absolute;width:'+S+'px;height:'+S+'px;'+(cls==='tr'?'left:0;top:'+(-S/2)+'px':'left:'+(-S/2)+'px;top:0'); d.appendChild(inner); sl.insertBefore(d,sl.firstChild); };
-    mk('tr',Math.max(360,Math.round(innerWidth*.26)),'#EDB4AC','#D98E9B','#E6C48E'); mk('bl',Math.max(300,Math.round(innerWidth*.2)),'#E6C48E','#EDB4AC','#D98E9B'); }); })();
 let idx=0, fr=0, frs=[], active=null, lastAtlas=null, running=false;
 const MODES=[{t:'вручную',ms:0},{t:'авто, 3 с',ms:3000},{t:'авто, 5 с',ms:5000},{t:'всё сразу',ms:0}];
 let mode=0, autoT=null; const modeBtn=document.getElementById('dkMode'), toast=document.getElementById('dkToast'); let toastT=null;
@@ -1807,8 +1799,8 @@ function tSetup(step){ tStop(); const seq=step&&step.kind==='atlas'&&TIMERS[step
 
 /* ===== озвучка: голос, слайды и таймер идут сами ===== */
 const PLAY=[
- {f:'1',s:0,d:10},{f:'2',s:1,d:26},{f:'3',s:2,d:20},
- {f:'4',s:3,d:26},{f:'5',s:4,d:32},{f:'6',s:5,d:46},{f:'7',s:6,d:14},
+ {f:'1',s:0,d:10},{f:'2',s:1,d:18},{f:'3',s:2,d:15},
+ {f:'4',s:3,d:18},{f:'5',s:4,d:32},{f:'6',s:5,d:46},{f:'7',s:6,d:14},
  {f:'8',s:7,d:38},{f:'9',s:8,d:34},{f:'10',s:9,d:36},
  {f:'11',s:10,d:36},{f:'12',s:11,d:30},{f:'13',s:12,d:12},{f:'14',s:13,d:10},{f:'15',s:14,d:34},
  {f:'16',s:15,d:42},{f:'17',s:16,d:36},{f:'18',s:17,d:8},{f:'19',s:18,d:20},
